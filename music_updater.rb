@@ -38,7 +38,7 @@ def get_cover_art(artist, album)
 end
 
 puts 'Updating FLAC files'
-`/usr/bin/perl flac2mp3/flac2mp3.pl #{MUSIC_DIR} #{MP3_DIR}`
+system("/usr/bin/perl flac2mp3/flac2mp3.pl #{MUSIC_DIR} #{MP3_DIR}")
 
 puts 'Updating MP3 files'
 mp3s = `find #{MUSIC_DIR} -name '*.mp3'`.split("\n")
@@ -51,7 +51,7 @@ mp3s.each do |f|
 	end
 end
 
-`symlinks -dr #{MP3_DIR}`
+system("symlinks -dr #{MP3_DIR}")
 
 puts 'Updating cover art'
 dirs = `find #{MP3_DIR} -mindepth 2 -maxdepth 2 -type d`.split("\n")
